@@ -1,0 +1,5 @@
+# dune init project ocaml_aoc2023
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /Users/me/oss/aoc-2023/ocaml_aoc2023
+# Auto-detected concurrency: 12

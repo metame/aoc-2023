@@ -1,0 +1,4 @@
+(executable
+ (public_name ocaml_aoc2023)
+ (name main)
+ (libraries ocaml_aoc2023))

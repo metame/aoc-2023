@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Day1
       Lib
   other-modules:
       Paths_haskell_aoc2023
@@ -35,6 +36,8 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , mtl
+    , parsec
   default-language: Haskell2010
 
 executable haskell-aoc2023-exe
@@ -49,6 +52,8 @@ executable haskell-aoc2023-exe
   build-depends:
       base >=4.7 && <5
     , haskell-aoc2023
+    , mtl
+    , parsec
   default-language: Haskell2010
 
 test-suite haskell-aoc2023-test
@@ -64,4 +69,6 @@ test-suite haskell-aoc2023-test
   build-depends:
       base >=4.7 && <5
     , haskell-aoc2023
+    , mtl
+    , parsec
   default-language: Haskell2010
