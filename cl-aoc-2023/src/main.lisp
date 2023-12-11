@@ -2,29 +2,31 @@
   (:use :cl :str))
 (in-package :cl-aoc-2023)
 
-(defvar contents '(:red 12 :green 13 :blue 14))
-
+;; shared
 (defun key-it (s)
   (cond
     ((equal s "red") :red)
     ((equal s "green") :green)
     ((equal s "blue") :blue)))
 
-(defun color-possible? (c)
-  (>= (getf contents (key-it (second c)))
-      (read-from-string (first c))))
-
 (defun play->colors (play)
   (mapcar (lambda (c) (str:split " " c)) (str:split ", " play)))
-
-(defun play-possible? (play)
-  (every #'color-possible? (play->colors play)))
 
 (defun ->play (results)
   (str:split "; " results))
 
 (defun line->id&results (line)
   (str:split ": " (str:substring 5 t line)))
+
+;; part 1
+(defvar contents '(:red 12 :green 13 :blue 14))
+
+(defun color-possible? (c)
+  (>= (getf contents (key-it (second c)))
+      (read-from-string (first c))))
+
+(defun play-possible? (play)
+  (every #'color-possible? (play->colors play)))
 
 (defun kim-possible? (line)
   (let* ((l (line->id&results line))
@@ -34,11 +36,17 @@
         (read-from-string id)
         0)))
 
+(defun part1 (path)
+  (let ((lines (str:lines (str:from-file path))))
+    (reduce #'+ (mapcar #'kim-possible? lines))))
+
+;; part 2
 (defun play->colors-pl (play)
   (reduce (lambda (pl c)
             (if (eq nil c)
                 pl
-                (cons (key-it (second c)) (cons (read-from-string (first c)) pl))))
+                (cons (key-it (second c))
+                      (cons (read-from-string (first c)) pl))))
           (play->colors play)
           :initial-value '()))
 
@@ -61,10 +69,6 @@
     (* (or (getf max-colors :red) 1)
        (or (getf max-colors :blue) 1)
        (or (getf max-colors :green) 1))))
-
-(defun part1 (path)
-  (let ((lines (str:lines (str:from-file path))))
-    (reduce #'+ (mapcar #'kim-possible? lines))))
 
 (defun part2 (path)
   (let ((lines (str:lines (str:from-file path))))
